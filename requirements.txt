@@ -1,0 +1,19 @@
+# JoshTalks ASR Assessment — Python Dependencies
+# Install: pip install -r requirements.txt
+# GPU: Apple Silicon MPS is supported via standard torch install (no --index-url needed)
+
+transformers>=4.35.0
+datasets>=2.14.0
+evaluate>=0.4.0
+jiwer>=3.0.0
+torch>=2.0.0          # supports Apple MPS (Metal GPU) on M1/M2/M3/M4
+torchaudio>=2.0.0
+accelerate>=0.24.0
+sentencepiece>=0.1.99
+soundfile>=0.12.1
+librosa>=0.10.0
+requests>=2.31.0
+pandas>=2.0.0
+tqdm>=4.66.0
+numpy>=1.26.0
+# difflib is Python standard library — no install needed

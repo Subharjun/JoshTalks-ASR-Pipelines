@@ -1,0 +1,5 @@
+SUBMISSION.md
+.venv
+__pycache__/
+*.csv
+.DS_Store
