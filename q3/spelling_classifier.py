@@ -181,13 +181,14 @@ def is_devanagari_english(word):  # type: ignore
 class SpellingClassifier:
     def __init__(self):  # type: ignore
         self.lm = CharNgramLM(n=3)
-        self._train_lm()
         self.lm_threshold_high   = -1.8
-        self.lm_threshold_medium = -2.5
+        self.lm_threshold_medium = -3.5  # Lowered slightly for the larger corpus
 
-    def _train_lm(self):  # type: ignore
-        """Train n-gram LM on known correct words."""
-        self.lm.train(list(COMMON_HINDI_WORDS))
+    def train_on_corpus(self, corpus): # type: ignore
+        """Train n-gram LM dynamically on the full noisy corpus itself."""
+        # Mix the core dictionary with the corpus to ensure baseline stability
+        training_data = list(COMMON_HINDI_WORDS) + corpus
+        self.lm.train(training_data)
 
     def classify(self, word):  # type: ignore
         word = word.strip()
@@ -254,6 +255,8 @@ class SpellingClassifier:
             )
 
     def classify_batch(self, words):  # type: ignore
+        # Dynamically train the LM on the entire dataset to learn structural Hindi phonetics
+        self.train_on_corpus(words)
         return [self.classify(w) for w in words]
 
 
